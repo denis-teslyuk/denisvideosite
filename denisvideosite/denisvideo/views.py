@@ -1,8 +1,9 @@
 import random
 
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
 from denisvideo.models import View, Video
 
@@ -55,17 +56,27 @@ def show_video(request, slug):
     if side_videos:
         side_videos = random.choices(side_videos, k=10)
 
-    likes_count = video.likes.count()
-
+    likes_count = video.likers.count()
+    dislikes_count = video.dislikers.count()
     data = {
         'title': video.name,
         'video': video,
         'side_videos': side_videos,
         'likes_count': likes_count,
+        'dislikes_count':dislikes_count,
     }
 
     return render(request, 'denisvideo/show_video.html', data)
 
 
-def add_like_or_dislike(request):
-    pass
+@login_required
+def add_like_or_dislike(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+
+    if request.GET.get('type') in ('likers', 'dislikers'):
+        if request.user in getattr(video, request.GET['type']).all():
+            getattr(video, request.GET['type']).remove(request.user)
+        else:
+            getattr(video, request.GET['type']).add(request.user)
+
+    return redirect(request.META.get('HTTP_REFERER'))
