@@ -14,6 +14,8 @@ class Video(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
     dislikers = models.ManyToManyField(get_user_model(),blank=True, related_name='disliked_videos')
     watch_later_users = models.ManyToManyField(get_user_model(),blank=True, related_name='later_videos')
+    tags = models.ManyToManyField('Tag', blank = True, related_name='videos', verbose_name='Теги')
+
 
     def __str__(self):
         return self.name

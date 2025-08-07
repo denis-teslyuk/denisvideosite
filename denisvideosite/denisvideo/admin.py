@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from denisvideo.models import Video, Tag
+from denisvideo.models import Video, Tag, View
+
 
 # Register your models here.
 
@@ -12,3 +13,6 @@ class VideoAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     exclude = ('slug', )
+
+
+admin.site.register(View)
