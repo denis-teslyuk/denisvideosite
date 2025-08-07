@@ -1,3 +1,49 @@
+from django.contrib.auth import get_user_model
 from django.db import models
+from pytils.translit import slugify
+
 
 # Create your models here.
+class Video(models.Model):
+    file = models.FileField(upload_to='videos', verbose_name='Видео файл')
+    name = models.CharField(max_length=128, verbose_name='Название')
+    slug = models.SlugField()
+    preview = models.ImageField(upload_to='previews', verbose_name='Превью')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='videos', verbose_name='Автор')
+    description = models.TextField(blank=True, verbose_name='Описание')
+    time_create = models.DateTimeField(auto_now_add=True)
+    dislikers = models.ManyToManyField(get_user_model(), related_name='disliked_videos')
+    watch_later_users = models.ManyToManyField(get_user_model(), related_name='later_videos')
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
+class Like(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='likes',
+                             verbose_name='Пользователь')
+    video = models.ForeignKey('Video', on_delete=models.CASCADE, related_name='likes', verbose_name='Видео')
+    time_create = models.DateTimeField(auto_now_add=True)
+
+
+class View(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='views',
+                             verbose_name='Пользователь')
+    video = models.ForeignKey('Video', on_delete=models.CASCADE, related_name='views', verbose_name='Видео')
+    time_create = models.DateTimeField(auto_now_add=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=64, verbose_name='Название тега')
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
