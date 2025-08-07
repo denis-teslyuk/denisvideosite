@@ -1,11 +1,11 @@
 import random
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
-from django.http import HttpResponse
+from django.db.models import Count, Q
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
-from denisvideo.models import View, Video
+from denisvideo.models import View, Video, Tag
 
 
 # Create your views here.
@@ -45,7 +45,7 @@ def show_video(request, slug):
     video = get_object_or_404(Video, slug = slug)
 
     if request.user.is_authenticated:
-        View.objects.filter(user = request.user).delete()
+        View.objects.filter(user = request.user, video=video).delete()
         View.objects.create(user=request.user, video = video)
 
     views = video.views_count + 1
@@ -58,6 +58,7 @@ def show_video(request, slug):
 
     likes_count = video.likers.count()
     dislikes_count = video.dislikers.count()
+
     data = {
         'title': video.name,
         'video': video,
@@ -80,3 +81,42 @@ def add_like_or_dislike(request, slug):
             getattr(video, request.GET['type']).add(request.user)
 
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def search(request):
+    search_string = request.GET.get('find', '')
+    video_list = Video.objects.filter(
+        Q(name__contains = search_string) | Q(description__contains = search_string))
+    data = {
+        'title':'Поиск',
+        'video_list':video_list,
+    }
+
+    return render(request, 'denisvideo/search.html', data)
+
+@login_required
+def video_by_using_type(request):
+    if request.GET.get('type') in ('liked_videos', 'later_videos'):
+        videos = getattr(request.user, request.GET.get('type')).all()[::-1]
+    elif request.GET.get('type') == 'views':
+        videos = Video.objects.filter(views__user = request.user).order_by('-time_create')
+    else:
+        raise Http404()
+
+    data = {
+        'title':'Список видео',
+        'videos':videos,
+    }
+    return render(request, 'denisvideo/index.html', data)
+
+
+def video_by_tag(request, slug):
+    tag = get_object_or_404(Tag, slug = slug)
+    videos = Video.objects.filter(tags = tag)
+
+    data = {
+        'title': f'Видео по теме: {tag.name}',
+        'videos':videos,
+    }
+
+    return render(request, 'denisvideo/index.html', data)
