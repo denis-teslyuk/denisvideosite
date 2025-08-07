@@ -2,6 +2,6 @@
 
 {% block content %}
 {% for vid in videos %}
-    <a><img src = '{{vid.preview.url}}' width="300px"/></a>
+    <a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a>
 {% endfor %}
 {% endblock %}

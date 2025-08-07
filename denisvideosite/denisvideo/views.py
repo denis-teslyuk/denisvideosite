@@ -2,7 +2,7 @@ import random
 
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime, timedelta
 from denisvideo.models import View, Video
 
@@ -38,3 +38,19 @@ def index(request):
     }
 
     return render(request, 'denisvideo/index.html', data)
+
+
+def show_video(request, slug):
+    video = get_object_or_404(Video, slug = slug)
+
+    side_videos = list(Video.objects.filter(tags__in = video.tags.all()))
+    if side_videos:
+        side_videos = random.choices(side_videos, k=10)
+
+    data = {
+        'title': video.name,
+        'video': video,
+        'side_videos': side_videos,
+    }
+
+    return render(request, 'denisvideo/show_video.html', data)

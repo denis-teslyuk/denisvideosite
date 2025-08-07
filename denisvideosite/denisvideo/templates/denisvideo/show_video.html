@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <video controls src = '{{video.file.url}}' width="1000px"/></video>
+    <ul>
+    {% for vid in side_videos %}
+        <li>
+            <a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
