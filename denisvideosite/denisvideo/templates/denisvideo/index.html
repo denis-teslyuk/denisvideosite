@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for vid in videos %}
+    <a><img src = '{{vid.preview.url}}' width="300px"/></a>
+{% endfor %}
+{% endblock %}
