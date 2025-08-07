@@ -2,6 +2,8 @@
 
 {% block content %}
     <video controls src = '{{video.file.url}}' width="1000px"/></video>
+    <div>{{video.views_count}}</div>
+    <div>{{likes_count}}</div>
     <ul>
     {% for vid in side_videos %}
         <li>

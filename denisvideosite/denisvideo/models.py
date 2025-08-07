@@ -12,10 +12,11 @@ class Video(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='videos', verbose_name='Автор')
     description = models.TextField(blank=True, verbose_name='Описание')
     time_create = models.DateTimeField(auto_now_add=True)
+    likers = models.ManyToManyField(get_user_model(), blank=True, related_name='liked_videos')
     dislikers = models.ManyToManyField(get_user_model(),blank=True, related_name='disliked_videos')
     watch_later_users = models.ManyToManyField(get_user_model(),blank=True, related_name='later_videos')
     tags = models.ManyToManyField('Tag', blank = True, related_name='videos', verbose_name='Теги')
-
+    views_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -23,13 +24,6 @@ class Video(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
-
-
-class Like(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, related_name='likes',
-                             verbose_name='Пользователь')
-    video = models.ForeignKey('Video', on_delete=models.CASCADE, related_name='likes', verbose_name='Видео')
-    time_create = models.DateTimeField(auto_now_add=True)
 
 
 class View(models.Model):

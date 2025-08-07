@@ -43,14 +43,29 @@ def index(request):
 def show_video(request, slug):
     video = get_object_or_404(Video, slug = slug)
 
+    if request.user.is_authenticated:
+        View.objects.filter(user = request.user).delete()
+        View.objects.create(user=request.user, video = video)
+
+    views = video.views_count + 1
+    video.views_count = views
+    video.save()
+
     side_videos = list(Video.objects.filter(tags__in = video.tags.all()))
     if side_videos:
         side_videos = random.choices(side_videos, k=10)
+
+    likes_count = video.likes.count()
 
     data = {
         'title': video.name,
         'video': video,
         'side_videos': side_videos,
+        'likes_count': likes_count,
     }
 
     return render(request, 'denisvideo/show_video.html', data)
+
+
+def add_like_or_dislike(request):
+    pass
