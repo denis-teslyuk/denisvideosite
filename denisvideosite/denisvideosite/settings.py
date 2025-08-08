@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, AUTH_USER_MODEL, LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
+from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, AUTH_USER_MODEL, LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL, \
+    AUTHENTICATION_BACKENDS
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -137,3 +138,8 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'users.backends.EmailAuthBackend'
+]
