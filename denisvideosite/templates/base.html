@@ -10,7 +10,7 @@
         <div><a href="{% url 'users:login' %}">Войти</a></div>
         <div><a href="{% url 'users:registration' %}">Регистрация</a></div>
         {% else %}
-        <div>{{user.username}}</div>
+        <div><a href="{% url 'users:profile' %}">{{user.username}}</a></div>
         <div>
             <form action="{% url 'users:logout' %}" method="post">
                 {% csrf_token %}
