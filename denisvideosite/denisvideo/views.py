@@ -107,7 +107,8 @@ def video_by_using_type(request):
         'title':'Список видео',
         'videos':videos,
     }
-    return render(request, 'denisvideo/index.html', data)
+
+    return render(request, 'denisvideo/video_by_using_type.html', data)
 
 
 def video_by_tag(request, slug):
