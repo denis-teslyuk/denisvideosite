@@ -1,11 +1,14 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from pytils.translit import slugify
 
 
 # Create your models here.
 class Video(models.Model):
-    file = models.FileField(upload_to='videos', verbose_name='Видео файл')
+    file = models.FileField(upload_to='videos',
+                            validators =[FileExtensionValidator(allowed_extensions=['mp4','avi','mkv','mov','wmv','webm','html5','mpeg'])],
+                            verbose_name='Видео файл')
     name = models.CharField(max_length=128, verbose_name='Название')
     slug = models.SlugField(unique=True)
     preview = models.ImageField(upload_to='previews', verbose_name='Превью')

@@ -10,4 +10,6 @@ urlpatterns = [
     path('video_by_using_type/', views.video_by_using_type, name='video_by_using_type'),
     path('video_by_tag/<slug:slug>/', views.video_by_tag, name='video_by_tag'),
     path('add_watch_later/<slug:slug>/', views.add_watch_later, name='add_watch_later'),
+    path('add_video/', views.add_video, name='add_video'),
+    path('my_videos/', views.show_my_videos, name='my_videos'),
 ]

@@ -5,6 +5,8 @@ from django.db.models import Count, Q
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
+
+from denisvideo.forms import VideoForm
 from denisvideo.models import View, Video, Tag
 
 
@@ -129,3 +131,31 @@ def video_by_tag(request, slug):
     }
 
     return render(request, 'denisvideo/index.html', data)
+
+
+@login_required
+def add_video(request):
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            return redirect('my_videos')
+    else:
+        form = VideoForm()
+
+    data = {
+        'title': 'Загрузка видео',
+        'form': form,
+    }
+    return render(request, 'denisvideo/add_video.html', data)
+
+
+def show_my_videos(request):
+    videos = Video.objects.filter(user = request.user)
+
+    data = {'title':'Мои видео',
+            'videos':videos,}
+
+    return render(request, 'denisvideo/video_by_using_type.html', data)

@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <ul>
   <li><a href="{% url 'video_by_using_type' %}?type=liked_videos">Понравившееся видео</a></li>
   <li><a href="{% url 'video_by_using_type' %}?type=later_videos">Смотреть позже</a></li>
-  <il><a href="{% url 'video_by_using_type' %}?type=views">История</a></il>
-</ul>
+  <li><a href="{% url 'video_by_using_type' %}?type=views">История</a></li>
+  <li><a href="{% url 'my_videos' %}">Мои видео</a></li>
 
+</ul>
+{% endif %}
 <ul>
 {% for tag in tags %}
   <li><a href="{% url 'video_by_tag' tag.slug %}">{{tag.name}}</a></li>
