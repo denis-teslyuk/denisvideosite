@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 
 from denisvideo.forms import VideoForm
 from denisvideo.models import View, Video, Tag
+from users.models import Channel
 
 
 # Create your views here.
@@ -135,6 +136,8 @@ def video_by_tag(request, slug):
 
 @login_required
 def add_video(request):
+    if not Channel.objects.filter(user=request.user).exists():
+        return redirect('users:create_channel')
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -152,7 +155,10 @@ def add_video(request):
     return render(request, 'denisvideo/add_video.html', data)
 
 
+@login_required
 def show_my_videos(request):
+    if not Channel.objects.filter(user=request.user).exists():
+        return redirect('users:create_channel')
     videos = Video.objects.filter(user = request.user)
 
     data = {'title':'Мои видео',

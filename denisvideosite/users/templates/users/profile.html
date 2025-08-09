@@ -7,5 +7,11 @@
     <button type="submit">Изменить</button>
 </form></div>
 <div><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
+{% if user.channel is not None %}
+<div>Название канала: {{user.channel.name}}</div>
+<div><a href="{% url 'my_videos' %}">Мои видео</a></div>
 <div><a href="{% url 'add_video' %}">Добавить видео</a></div>
+{% else %}
+<div><a href="{% url 'users:create_channel' %}">Создать канал</a></div>
+{% endif %}
 {% endblock %}

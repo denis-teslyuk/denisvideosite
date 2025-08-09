@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 from django import forms
 
+from users.models import Channel
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -37,3 +39,18 @@ class ProfileForm(forms.ModelForm):
         if old_username == username or not get_user_model().objects.filter(username=username).exists():
             return username
         raise ValidationError('Пользователь с таким именем уже существует')
+
+
+class ChannelForm(forms.ModelForm):
+    class Meta:
+        model = Channel
+        fields = ('name', 'description')
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+        if Channel.objects.filter(name=name).exists():
+            raise ValidationError('Канал с таким названием уже существует')
+        return name
+
+
+
