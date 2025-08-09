@@ -1,0 +1,8 @@
+{% extends 'denisvideo/left_bar.html' %}
+
+{% block right_side %}
+{{title}}
+{% for vid in videos %}
+    <div><a href="{% url 'show_video' vid.slug %}"><img src="{{vid.preview.url}}"></a></div>
+{% endfor %}
+{% endblock %}

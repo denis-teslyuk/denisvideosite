@@ -165,3 +165,15 @@ def show_my_videos(request):
             'videos':videos,}
 
     return render(request, 'denisvideo/video_by_using_type.html', data)
+
+
+def show_channel(request, slug):
+    channel = get_object_or_404(Channel, slug=slug)
+    videos = Video.objects.filter(user__channel = channel)
+
+    data = {
+        'title':channel.name,
+        'videos':videos,
+    }
+
+    return render(request, 'denisvideo/channel.html', data)

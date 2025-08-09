@@ -12,4 +12,5 @@ urlpatterns = [
     path('add_watch_later/<slug:slug>/', views.add_watch_later, name='add_watch_later'),
     path('add_video/', views.add_video, name='add_video'),
     path('my_videos/', views.show_my_videos, name='my_videos'),
+    path('channel/<slug:slug>/', views.show_channel, name='channel'),
 ]

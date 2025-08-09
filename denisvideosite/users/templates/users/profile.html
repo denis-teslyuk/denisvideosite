@@ -10,7 +10,7 @@
 <div><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
 {% check_channel user as check_result %}
 {% if check_result %}
-<div>Название канала: {{user.channel.name}}</div>
+<div>Канал: <a href="{% url 'channel' user.channel.slug %}">{{user.channel.name}}</a></div>
 <div><a href="{% url 'users:update_channel' %}">Изменить данные канала</a></div>
 <div><a href="{% url 'my_videos' %}">Мои видео</a></div>
 <div><a href="{% url 'add_video' %}">Добавить видео</a></div>
