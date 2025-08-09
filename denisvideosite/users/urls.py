@@ -13,6 +13,7 @@ urlpatterns = [
     path('registration/', views.RegistrationUser.as_view(), name='registration'),
     path('profile/', views.ProfileUser.as_view(), name='profile'),
     path('create_channel/', views.CreateChannel.as_view(), name='create_channel'),
+    path('update_channel/', views.UpdateChannel.as_view(), name='update_channel'),
 
     path('password-change/', PasswordChangeView.as_view(template_name = 'users/password_change.html',
                                                         success_url = reverse_lazy('users:password_change_done')),

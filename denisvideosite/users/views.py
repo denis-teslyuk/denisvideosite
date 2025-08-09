@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
@@ -22,7 +24,6 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
     form_class = ProfileForm
     template_name = 'users/profile.html'
 
-
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['title'] = data['object']
@@ -37,8 +38,8 @@ class ProfileUser(LoginRequiredMixin, UpdateView):
 
 class CreateChannel(LoginRequiredMixin, CreateView):
     form_class = ChannelForm
-    extra_context = {'title':'Создание канала',}
-    template_name = 'users/create_channel.html'
+    extra_context = {'title':'Создание канала','button_text':'Создать',}
+    template_name = 'users/manipulate_channel.html'
 
     def get(self, request, *args, **kwargs):
         if Channel.objects.filter(user = self.request.user).exists():
@@ -52,3 +53,18 @@ class CreateChannel(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         form.save()
         return super().form_valid(form)
+
+
+class UpdateChannel(LoginRequiredMixin, UpdateView):
+    form_class = ChannelForm
+    extra_context = {'title': 'Создание канала', 'button_text':'Обновить',}
+    template_name = 'users/manipulate_channel.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return Channel.objects.get(user = self.request.user)
+        except ObjectDoesNotExist:
+            return redirect(reverse_lazy('users:create_channel'))
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile')

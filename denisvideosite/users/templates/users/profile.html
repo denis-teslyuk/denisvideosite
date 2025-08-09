@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load templ_tags %}
 
 {% block content %}
 <div><form action="" method="post">
@@ -7,8 +8,10 @@
     <button type="submit">Изменить</button>
 </form></div>
 <div><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
-{% if user.channel is not None %}
+{% check_channel user as check_result %}
+{% if check_result %}
 <div>Название канала: {{user.channel.name}}</div>
+<div><a href="{% url 'users:update_channel' %}">Изменить данные канала</a></div>
 <div><a href="{% url 'my_videos' %}">Мои видео</a></div>
 <div><a href="{% url 'add_video' %}">Добавить видео</a></div>
 {% else %}

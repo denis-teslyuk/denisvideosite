@@ -48,7 +48,7 @@ class ChannelForm(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if Channel.objects.filter(name=name).exists():
+        if not self.instance and Channel.objects.filter(name=name).exists():
             raise ValidationError('Канал с таким названием уже существует')
         return name
 
