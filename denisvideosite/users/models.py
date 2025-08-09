@@ -8,6 +8,7 @@ import denisvideo.models as video_models
 # Create your models here.
 class CustomUser(AbstractUser):
     photo = models.ImageField(upload_to='users_photo', blank=True, null=True, verbose_name='Фото профиля')
+    subscribes = models.ManyToManyField('Channel', blank =True, verbose_name='Подписки', related_name='subscribers')
 
 
 class Channel(models.Model):
