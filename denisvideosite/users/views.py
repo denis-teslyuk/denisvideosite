@@ -4,8 +4,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
+from denisvideo.models import Video
 from users.forms import RegistrationForm, ProfileForm, ChannelForm
 from users.models import Channel
 
@@ -57,7 +58,22 @@ class CreateChannel(LoginRequiredMixin, CreateView):
 
 class UpdateChannel(LoginRequiredMixin, UpdateView):
     form_class = ChannelForm
-    extra_context = {'title': 'Создание канала', 'button_text':'Обновить',}
+    extra_context = {'title': 'Изменение канала', 'button_text':'Обновить',}
+    template_name = 'users/manipulate_channel.html'
+
+    def get_object(self, queryset=None):
+        try:
+            return Channel.objects.get(user = self.request.user)
+        except ObjectDoesNotExist:
+            return redirect(reverse_lazy('users:create_channel'))
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile')
+
+
+class DeleteChannel(LoginRequiredMixin, DeleteView):
+    model = Channel
+    extra_context = {'title': 'Удаление канала', 'button_text': 'Удалить', }
     template_name = 'users/manipulate_channel.html'
 
     def get_object(self, queryset=None):

@@ -2,6 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from pytils.translit import slugify
 
+import denisvideo.models as video_models
+
 
 # Create your models here.
 class CustomUser(AbstractUser):
@@ -22,3 +24,6 @@ class Channel(models.Model):
         self.slug = slugify(self.name)
         super().save()
 
+    def delete(self, *args, **kwargs):
+        video_models.Video.objects.filter(user=self.user).delete()
+        return super().delete(*args, **kwargs)

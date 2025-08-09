@@ -14,6 +14,7 @@
 <div><a href="{% url 'users:update_channel' %}">Изменить данные канала</a></div>
 <div><a href="{% url 'my_videos' %}">Мои видео</a></div>
 <div><a href="{% url 'add_video' %}">Добавить видео</a></div>
+<div><a href="{% url 'users:delete_channel' %}">Удалить канал</a></div>
 {% else %}
 <div><a href="{% url 'users:create_channel' %}">Создать канал</a></div>
 {% endif %}
