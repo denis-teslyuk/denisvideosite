@@ -2,6 +2,7 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
+from django.forms import model_to_dict
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
@@ -151,7 +152,9 @@ def add_video(request):
     data = {
         'title': 'Загрузка видео',
         'form': form,
+        'button_text': 'Загрузить',
     }
+
     return render(request, 'denisvideo/add_video.html', data)
 
 
@@ -164,7 +167,7 @@ def show_my_videos(request):
     data = {'title':'Мои видео',
             'videos':videos,}
 
-    return render(request, 'denisvideo/video_by_using_type.html', data)
+    return render(request, 'denisvideo/my_videos.html', data)
 
 
 def show_channel(request, slug):
@@ -179,3 +182,50 @@ def show_channel(request, slug):
     }
 
     return render(request, 'denisvideo/channel.html', data)
+
+
+@login_required
+def show_subscribes(request):
+    channels = request.user.subscribes.all()
+    videos = Video.objects.filter(user__channel__in = channels).order_by('-time_create')
+
+    data ={
+        'title':'Подписки',
+        'channels':channels,
+        'videos': videos,
+    }
+
+    return render(request, 'denisvideo/subscribes.html',data)
+
+
+@login_required
+def update_video(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    if video.user != request.user:
+        raise Http404()
+
+    if request.method == 'POST':
+        form = VideoForm(request.POST, request.FILES, instance=video)
+        if form.is_valid():
+            form.save()
+            return redirect('my_videos')
+    else:
+        form = VideoForm(instance=video)
+
+    data = {
+        'title':'Изменить видео',
+        'form': form,
+        'button_text': 'Изменить',
+    }
+
+    return render(request, 'denisvideo/add_video.html', data)
+
+
+@login_required
+def delete_video(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    if request.user != video.user:
+        raise Http404()
+    video.delete()
+    return redirect('my_videos')
+

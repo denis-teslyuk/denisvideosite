@@ -1,0 +1,13 @@
+{% extends 'denisvideo/left_bar.html' %}
+
+{% block right_side %}
+<ul>
+{% for vid in videos %}
+    <li>
+    <a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a>
+    <div><a href="{% url 'update_video' vid.slug %}">Изменить видео</a>
+        <a href="{% url 'delete_video' vid.slug %}">Удалить видео</a></div>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

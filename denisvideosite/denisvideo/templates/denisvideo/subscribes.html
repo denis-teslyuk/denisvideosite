@@ -1,0 +1,14 @@
+{% extends 'denisvideo/left_bar.html' %}
+
+{% block right_side %}
+<ul>
+{% for vid in videos %}
+    <li><a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a></li>
+{% endfor %}
+</ul>
+<ul>
+{% for ch in channels %}
+    <li><a href="{% url 'channel' ch.slug %}">{{ch.name}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
