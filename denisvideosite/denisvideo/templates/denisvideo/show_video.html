@@ -3,8 +3,9 @@
 {% block content %}
     <video controls src = '{{video.file.url}}' width="1000px"/></video>
     <div>{{video.views_count}}</div>
-    <div>{{likes_count}} <a href="{% url 'add_like_or_dislike' video.slug %}?type=likers">Лайк</a></div>
-    <div>{{dislikes_count}} <a href="{% url 'add_like_or_dislike' video.slug %}?type=dislikers">Дизлайк</a></div>
+    <div>{{likes_count}} {% if user.is_authenticated %}<a href="{% url 'add_like_or_dislike' video.slug %}?type=likers">Лайк</a>{% endif %}</div>
+    <div>{{dislikes_count}} {% if user.is_authenticated %}<a href="{% url 'add_like_or_dislike' video.slug %}?type=dislikers">Дизлайк</a>{% endif %}</div>
+    {% if user.is_authenticated %}<div><a href="{% url 'add_watch_later' video.slug %}">Смотреть позже</a></div>{% endif %}
     <ul>
     {% for vid in side_videos %}
         <li>

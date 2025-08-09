@@ -9,4 +9,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('video_by_using_type/', views.video_by_using_type, name='video_by_using_type'),
     path('video_by_tag/<slug:slug>/', views.video_by_tag, name='video_by_tag'),
+    path('add_watch_later/<slug:slug>/', views.add_watch_later, name='add_watch_later'),
 ]

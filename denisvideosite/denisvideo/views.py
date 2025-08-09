@@ -83,6 +83,13 @@ def add_like_or_dislike(request, slug):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
+def add_watch_later(request, slug):
+    video = get_object_or_404(Video, slug=slug)
+    video.watch_later_users.add(request.user)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
 def search(request):
     search_string = request.GET.get('find', '')
     video_list = Video.objects.filter(
@@ -93,6 +100,7 @@ def search(request):
     }
 
     return render(request, 'denisvideo/search.html', data)
+
 
 @login_required
 def video_by_using_type(request):
