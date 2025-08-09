@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from denisvideo.models import Video
@@ -84,3 +85,15 @@ class DeleteChannel(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('users:profile')
+
+
+class Subscribe(LoginRequiredMixin, View):
+    def get(self,request, slug, *args, **kwargs):
+        channel = get_object_or_404(Channel, slug = slug)
+        if channel.user == request.user:
+            redirect(request.META.get('HTTP_REFERER'))
+        if self.request.user in channel.subscribers.all():
+            channel.subscribers.remove(self.request.user)
+        else:
+            channel.subscribers.add(self.request.user)
+        return redirect(request.META.get('HTTP_REFERER'))

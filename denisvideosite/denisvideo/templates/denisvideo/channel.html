@@ -1,7 +1,7 @@
 {% extends 'denisvideo/left_bar.html' %}
 
 {% block right_side %}
-{{title}}
+<div>{{title}} <a href="{% url 'users:subscribe' channel.slug %}">{% if channel.user == user %}{% elif subed %}Отписаться{% else %}Подписаться{% endif %}</a></div>
 {% for vid in videos %}
     <div><a href="{% url 'show_video' vid.slug %}"><img src="{{vid.preview.url}}"></a></div>
 {% endfor %}

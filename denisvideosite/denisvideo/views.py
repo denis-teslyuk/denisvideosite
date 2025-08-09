@@ -174,6 +174,8 @@ def show_channel(request, slug):
     data = {
         'title':channel.name,
         'videos':videos,
+        'channel':channel,
+        'subed': request.user in channel.subscribers.all(),
     }
 
     return render(request, 'denisvideo/channel.html', data)
