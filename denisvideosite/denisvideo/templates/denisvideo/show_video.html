@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <video controls src = '{{video.file.url}}' width="1000px"/></video>
-    <div>{{video.views_count}}</div>
-    <div>{{likes_count}} {% if user.is_authenticated %}<a href="{% url 'add_like_or_dislike' video.slug %}?type=likers">Лайк</a>{% endif %}</div>
-    <div>{{dislikes_count}} {% if user.is_authenticated %}<a href="{% url 'add_like_or_dislike' video.slug %}?type=dislikers">Дизлайк</a>{% endif %}</div>
-    {% if user.is_authenticated %}<div><a href="{% url 'add_watch_later' video.slug %}">Смотреть позже</a></div>{% endif %}
-    <ul>
-    {% for vid in side_videos %}
-        <li>
-            <a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a>
-        </li>
-    {% endfor %}
-    </ul>
+    <div class="show-video-container">
+        <div class="show-video-left">
+            <video controls src = '{{video.file.url}}' class="show-video-player"/></video>
+            <div class="show-video-name">{{video.name}}</div>
+            <div class="show-video-channel">
+                <div class="show-video-channel-name"><a href="{% url 'channel' video.user.channel.slug %}">{{video.user.channel.name}}</a></div>
+                <div class="show-video-channel-subscribe"><a href="{% url 'users:subscribe' video.user.channel.slug %}">{% if subed %}Отписаться{% elif user == video.user %}{% else %}Подписаться{% endif %}</a></div>
+            </div>
+            <div class="show-video-extra">
+                <div class="show-video-views-count">{{video.views_count}} просмотров</div>
+                <div class="show-video-likes-count">{{likes_count}} Лайков
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_like_or_dislike' video.slug %}?type=likers"><img src="{% static 'denisvideo/img/like.png' %}" width="30px"></a>
+                    {% endif %}</div>
+                <div class="show-video-likes-count">{{dislikes_count}} Дизлайков
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_like_or_dislike' video.slug %}?type=dislikers"><img src="{% static 'denisvideo/img/dislike.png' %}" width="30px"></a>
+                    {% endif %}</div>
+                {% if user.is_authenticated %}<div class="show-video-watch-later"><a href="{% url 'add_watch_later' video.slug %}">Смотреть позже</a></div>{% endif %}
+            </div>
+            {% if video.description %}
+                <div class="show-video-description">{{video.description}}</div>
+            {% endif %}
+
+        </div>
+
+        <ul class="show-video-right">
+        {% for vid in side_videos %}
+            <li class="show-video-right-item">
+                <div class="show-video-right-item-image"><a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a></div>
+                <div class="show-video-right-item-data">
+                    <div class="show-video-right-item-name"><a href="{% url 'show_video' vid.slug %}">{{vid.name}}</a></div>
+                    <div class="show-video-right-item-channel-name"><a href="{% url 'channel' vid.user.channel.slug %}">{{vid.user.channel.name}}</a></div>
+                    <div class="show-video-right-item-extra">
+                        <div class="show-video-right-item-views">{{vid.views_count}} просмотров</div>
+                        <div class="show-video-right-item-time">{{vid.time_create}}</div>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

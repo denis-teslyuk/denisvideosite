@@ -16,7 +16,7 @@ from users.models import Channel
 # Create your views here.
 def index(request):
     videos = []
-    num_vid_per_page = 10
+    NUM_VID_PER_PAGE = 10
     if request.user.is_authenticated:
         user_views = View.objects.filter(user=request.user, time_create__gt = datetime.now() - timedelta(days=30))
         views_by_tag =  user_views.values('video__tags__pk').annotate(count = Count('pk'))
@@ -24,8 +24,7 @@ def index(request):
         for tag in views_by_tag:
             total += tag['count']
 
-        count__vid_by_tag = {tag['video__tags__pk']: int(tag['count'] / total * num_vid_per_page) for tag in views_by_tag}
-
+        count__vid_by_tag = {tag['video__tags__pk']: int(tag['count'] / total * NUM_VID_PER_PAGE) for tag in views_by_tag}
 
         for tag_pk, count in count__vid_by_tag.items():
             video_list = list(Video.objects.filter(tags__pk = tag_pk,time_create__gt = datetime.now() - timedelta(days=60)))
@@ -33,7 +32,7 @@ def index(request):
             videos.extend(random.sample(video_list, k=count))
 
     video_list = Video.objects.all()
-    while len(videos) != num_vid_per_page and len(videos) < len(video_list):
+    while len(videos) != NUM_VID_PER_PAGE and len(videos) < len(video_list):
         vid = random.choice(video_list)
         if vid not in videos:
             videos.append(vid)
@@ -62,6 +61,7 @@ def show_video(request, slug):
         'side_videos': side_videos,
         'likes_count': likes_count,
         'dislikes_count':dislikes_count,
+        'subed': request.user in video.user.channel.subscribers.all(),
     }
 
     return render(request, 'denisvideo/show_video.html', data)

@@ -17,5 +17,4 @@ def increment_view_count(video):
 
 def get_side_videos(video):
     side_videos = list(Video.objects.filter(tags__in=video.tags.all()))
-    if side_videos:
-        side_videos = random.choices(side_videos, k=10)
+    return random.choices(side_videos, k=10) if side_videos else []
