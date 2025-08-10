@@ -106,7 +106,7 @@ html{
 }
 
 .right-side{
-    margin: 20px 0px 0px 20px;
+    margin: 20px 0px 0px 40px;
 }
 
 .show-video-container{
@@ -197,14 +197,47 @@ html{
     font-weight: 700;
 }
 
+
 .show-video-right-item-views{
     margin-right: 5px;
 }
 
+
 .show-video-right-item-channel-name{
     margin: 10px 0px 5px;
-    
-   
+}
+
+
+.index-list{
+    display: flex;
+    flex-wrap: wrap;
+    a, a:visited{
+        color: #E1E5EA;
+    }
+    font-weight: 700;
+}
+
+
+.index-item{
+    margin-right: 10px;
+    margin-bottom: 30px;
+}
+
+
+.index-item-image img{
+    width: 500px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+
+.index-item-name{
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.index-item-channel-name{
+    font-size: 16px;
 }
 
 
