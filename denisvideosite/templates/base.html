@@ -1,24 +1,41 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'denisvideo/css/style.css' %}">
 </head>
 <body>
-    <header>
-        {% if not user.is_authenticated %}
-        <div><a href="{% url 'users:login' %}">Войти</a></div>
-        <div><a href="{% url 'users:registration' %}">Регистрация</a></div>
-        {% else %}
-        <div><a href="{% url 'users:profile' %}">{{user.username}}</a></div>
-        <div>
-            <form action="{% url 'users:logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Выйти</button>
-            </form>
+    <div class="wrapper">
+    <header class="header">
+        <div class="header-container">
+            <div class="header-title"><a href="{% url 'index' %}">DENISVIDEO</a></div>
+            <div><form action="{% url 'search' %}" method="get">
+                <input type="text" name="search" class="header-search-form">
+                <button type="submit" class="header-search-button"><img src="{% static 'denisvideo/img/lupa.png' %}" width="24px"></button>
+            </form></div>
+            <div class="header-profile">
+                {% if not user.is_authenticated %}
+                <div><a href="{% url 'users:login' %}">Войти</a></div>
+                <div><a href="{% url 'users:registration' %}">Регистрация</a></div>
+                {% else %}
+                <div><a href="{% url 'users:profile' %}">{{user.username}}</a></div>
+                <div>
+                    <form action="{% url 'users:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="header-profile-button">Выйти</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
         </div>
-        {% endif %}
     </header>
+    <section class="main">
     {% block content %}{% endblock %}
+    </section>
+    <footer class="footer">footer</footer>
+    </div>
 </body>
 </html>

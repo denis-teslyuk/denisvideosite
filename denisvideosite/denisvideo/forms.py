@@ -8,3 +8,4 @@ class VideoForm(forms.ModelForm):
         model = Video
         fields = ('file', 'name', 'preview', 'description', 'tags',)
 
+
