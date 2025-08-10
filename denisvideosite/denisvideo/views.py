@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 
 from denisvideo.forms import VideoForm
 from denisvideo.models import View, Video, Tag
+from denisvideo.utils import create_view, increment_view_count, get_side_videos
 from users.models import Channel
 
 
@@ -47,18 +48,10 @@ def index(request):
 
 def show_video(request, slug):
     video = get_object_or_404(Video, slug = slug)
+    side_videos = get_side_videos(video)
 
-    if request.user.is_authenticated:
-        View.objects.filter(user = request.user, video=video).delete()
-        View.objects.create(user=request.user, video = video)
-
-    views = video.views_count + 1
-    video.views_count = views
-    video.save()
-
-    side_videos = list(Video.objects.filter(tags__in = video.tags.all()))
-    if side_videos:
-        side_videos = random.choices(side_videos, k=10)
+    create_view(request, video)
+    increment_view_count(video)
 
     likes_count = video.likers.count()
     dislikes_count = video.dislikers.count()
@@ -111,7 +104,7 @@ def video_by_using_type(request):
     if request.GET.get('type') in ('liked_videos', 'later_videos'):
         videos = getattr(request.user, request.GET.get('type')).all()[::-1]
     elif request.GET.get('type') == 'views':
-        videos = Video.objects.filter(views__user = request.user).order_by('-time_create')
+        videos = Video.objects.filter(views__user = request.user).order_by('-views__time_create')
     else:
         raise Http404()
 
