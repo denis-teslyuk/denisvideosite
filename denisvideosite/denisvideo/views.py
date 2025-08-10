@@ -2,40 +2,25 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
-from django.forms import model_to_dict
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from datetime import datetime, timedelta
 
 from denisvideo.forms import VideoForm
-from denisvideo.models import View, Video, Tag
-from denisvideo.utils import create_view, increment_view_count, get_side_videos
+from denisvideo.models import Video, Tag
+from denisvideo.utils import create_view, increment_view_count, get_side_videos, get_recommended_videos, \
+    add_videos_to_needs_num
 from users.models import Channel
 
 
 # Create your views here.
 def index(request):
     videos = []
-    NUM_VID_PER_PAGE = 10
+    num_vid_per_page = 10
     if request.user.is_authenticated:
-        user_views = View.objects.filter(user=request.user, time_create__gt = datetime.now() - timedelta(days=30))
-        views_by_tag =  user_views.values('video__tags__pk').annotate(count = Count('pk'))
-        total = 0
-        for tag in views_by_tag:
-            total += tag['count']
+        videos = get_recommended_videos(request, num_vid_per_page)
 
-        count__vid_by_tag = {tag['video__tags__pk']: int(tag['count'] / total * NUM_VID_PER_PAGE) for tag in views_by_tag}
-
-        for tag_pk, count in count__vid_by_tag.items():
-            video_list = list(Video.objects.filter(tags__pk = tag_pk,time_create__gt = datetime.now() - timedelta(days=60)))
-            count = len(video_list) if count > len(video_list) else count
-            videos.extend(random.sample(video_list, k=count))
-
-    video_list = Video.objects.all()
-    while len(videos) != NUM_VID_PER_PAGE and len(videos) < len(video_list):
-        vid = random.choice(video_list)
-        if vid not in videos:
-            videos.append(vid)
+    videos = add_videos_to_needs_num(videos, num_vid_per_page)
 
     data = {
         'title': 'Домашняя страница',
