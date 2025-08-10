@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Q
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -31,7 +32,10 @@ def index(request):
 
 
 def show_video(request, slug):
-    video = get_object_or_404(Video, slug = slug)
+    try:
+        video = Video.objects.select_related('user').get(slug = slug)
+    except ObjectDoesNotExist:
+        raise Http404()
     side_videos = get_side_videos(video)
 
     create_view(request, video)

@@ -9,7 +9,7 @@ from denisvideo.models import View, Video
 def create_view(request, video):
     if request.user.is_authenticated:
         View.objects.filter(user = request.user, video=video).delete()
-        View.objects.create(user=request.user, video = video)
+        View.objects.create(user = request.user, video = video)
 
 
 def increment_view_count(video):
@@ -19,7 +19,7 @@ def increment_view_count(video):
 
 
 def get_side_videos(video):
-    side_videos = list(Video.objects.filter(tags__in=video.tags.all()))
+    side_videos = list(Video.objects.filter(tags__in=video.tags.all()).select_related('user', 'user__channel'))
     return random.choices(side_videos, k=10) if side_videos else []
 
 
