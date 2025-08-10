@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 15px;
 }
 .header a, .header a:visited {
-  color: rgb(240, 240, 240);
+  color: #E1E5EA;
 }
 
 .header-container {
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-title {
-  color: rgb(240, 240, 240);
+  color: #E1E5EA;
   font-weight: 700;
   font-size: 24px;
 }
@@ -101,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 400px;
   height: 30px;
   margin-right: 10px;
-  background-color: rgb(240, 240, 240);
+  background-color: #E1E5EA;
   border: none;
   border-radius: 5px;
 }
@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-profile-button {
   background-color: rgba(255, 255, 255, 0);
-  color: rgb(240, 240, 240);
+  color: #E1E5EA;
   border: none;
   font-size: 20px;
   font-weight: 700;
@@ -133,4 +133,38 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 100%;
           flex: 1 1 100%;
+}
+
+.bars-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.left-bar {
+  padding: 20px;
+  width: 300px;
+  background-color: #1C232B;
+  height: 100%;
+}
+.left-bar a, .left-bar a:visited {
+  color: #E1E5EA;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.left-bar-list {
+  border-bottom: 1px solid #E1E5EA;
+  padding-bottom: 20px;
+}
+.left-bar-list li {
+  padding-bottom: 15px;
+}
+
+.left-bar-tag-list {
+  margin-top: 30px;
+}
+.left-bar-tag-list li {
+  padding-bottom: 15px;
 }

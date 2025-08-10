@@ -12,7 +12,7 @@
     height: 70px;
     padding: 15px;
     a, a:visited{
-        color: rgb(240, 240, 240);
+        color: #E1E5EA;
     }
 }
 
@@ -23,7 +23,7 @@
 }
 
 .header-title{
-    color: rgb(240, 240, 240);
+    color: #E1E5EA;
     font-weight: 700;
     font-size: 24px;
 }
@@ -32,7 +32,7 @@
     width: 400px;
     height: 30px;
     margin-right: 10px;
-    background-color: rgb(240, 240, 240);
+    background-color: #E1E5EA;
     border: none;
     border-radius: 5px;
 }
@@ -55,12 +55,52 @@
 
 .header-profile-button{
     background-color: rgba(255, 255, 255, 0);
-    color: rgb(240, 240, 240);
+    color: #E1E5EA;
     border: none;
     font-size: 20px;
     font-weight: 700;
 }
 
+
 .main{
     flex: 1 1 100%
 }
+
+
+.bars-container{
+    display: flex;
+    height: 100%;
+}
+
+
+.left-bar{
+    padding: 20px;
+    width: 300px;
+    background-color: #1C232B;
+    height: 100%;
+    a, a:visited{
+        color: #E1E5EA;
+        font-size: 17px;
+        font-weight: 700;
+    }
+    
+}
+
+.left-bar-list{
+    border-bottom: 1px solid #E1E5EA;;
+    padding-bottom: 20px;
+    li{
+        padding-bottom: 15px;
+    } 
+}
+
+.left-bar-tag-list{
+    margin-top: 30px;
+    li{
+        padding-bottom: 15px;
+    } 
+}
+
+
+
+
