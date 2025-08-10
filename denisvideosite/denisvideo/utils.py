@@ -43,14 +43,14 @@ def get_videos_by_watch_tag(request, count_vid_by_tag, videos):
     for tag_pk, count in count_vid_by_tag.items():
         video_list = list(Video.objects.filter(~Q(views__user=request.user),
                                                tags__pk=tag_pk,
-                                               time_create__gt=datetime.now() - timedelta(days=60)))
+                                               time_create__gt=datetime.now() - timedelta(days=60)).select_related('user', 'user__channel'))
         count = len(video_list) if count > len(video_list) else count
         videos.extend(random.sample(video_list, k=count))
     return videos
 
 
 def add_videos_to_needs_num(videos, num_vid_per_page):
-    video_list = Video.objects.all()
+    video_list = Video.objects.all().select_related('user', 'user__channel')
     while len(videos) != num_vid_per_page and len(videos) < len(video_list):
         vid = random.choice(video_list)
         if vid not in videos and vid:

@@ -1,7 +1,20 @@
 {% extends 'denisvideo/left_bar.html' %}
 
 {% block right_side %}
-{% for vid in videos %}
-    <a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/></a>
+<ul class="index-list">
+{% for vid in page %}
+    <li class="index-item">
+    {% include 'denisvideo/includes/show_item.html' %}
+    </li>
 {% endfor %}
+</ul>
+
+<ul class="video-by-types-pages">
+{% for page_num in page.paginator.page_range %}
+    {% if page.number|add:-3 <= page_num and page_num <= page.number|add:3 %}
+        <li class="video-by-types-page-num"><a href="?type={{request.GET.type}}&page={{page_num}}">{{page_num}}</a></li>
+    {% endif %}
+{% endfor %}
+</ul>
+
 {% endblock %}

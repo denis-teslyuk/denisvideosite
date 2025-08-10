@@ -79,7 +79,7 @@ html{
 
 .left-bar{
     padding: 20px;
-    width: 300px;
+    flex: 0 0 300px;
     background-color: #1C232B;
     height: 100%;
     a, a:visited{
@@ -107,6 +107,7 @@ html{
 
 .right-side{
     margin: 20px 0px 0px 40px;
+    width: 100%;
 }
 
 .show-video-container{
@@ -225,7 +226,7 @@ html{
 
 
 .index-item-image img{
-    width: 500px;
+    width: 400px;
     margin-bottom: 15px;
     border-radius: 10px;
 }
@@ -236,8 +237,38 @@ html{
     margin-bottom: 15px;
 }
 
+
 .index-item-channel-name{
     font-size: 16px;
 }
 
+
+.video-by-types-pages{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+
+.video-by-types-page-num{
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 10px;
+    a, a:visited{
+        color:#E1E5EA;
+    }
+}
+
+
+.my-videos-manupulate{
+    margin-top: 10px;
+    display: flex;
+    div {
+        margin-right: 10px;
+        background-color: #2e72c0;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    
+}
 

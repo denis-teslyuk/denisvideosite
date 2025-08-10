@@ -1,0 +1,4 @@
+
+        <div class="index-item-image"><a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}'/></a></div>
+        <div class="index-item-name"><a href="{% url 'show_video' vid.slug %}">{{vid.name|truncatechars:45}}</a></div>
+        <div class="index-item-channel-name"><a href="{% url 'channel' vid.user.channel.slug %}">{{vid.user.channel.name}}</a></div>

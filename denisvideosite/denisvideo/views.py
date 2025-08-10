@@ -2,6 +2,7 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator
 from django.db.models import Count, Q
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -97,9 +98,12 @@ def video_by_using_type(request):
     else:
         raise Http404()
 
+    paginator = Paginator(videos, 10)
+    page = paginator.get_page(request.GET.get('page', 1))
+
     data = {
         'title':'Список видео',
-        'videos':videos,
+        'page':page,
     }
 
     return render(request, 'denisvideo/video_by_using_type.html', data)
