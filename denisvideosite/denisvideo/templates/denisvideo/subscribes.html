@@ -1,4 +1,5 @@
 {% extends 'denisvideo/left_bar.html' %}
+{% load static %}
 
 {% block right_side %}
 <div class="subscribe-container">
@@ -11,7 +12,15 @@
 <div class="subscribe-channels-title">Каналы: </div>
 <ul>
 {% for ch in channels %}
-    <li><a href="{% url 'channel' ch.slug %}">{{ch.name}}</a></li>
+    <li>
+        {% if ch.user.photo %}
+            <div class="subscribes-user-avatar"><img src="{{ch.user.photo.url}}" width="100px" height="100px"></div>
+        {% else %}
+            <div class="subscribes-user-avatar"><img src="{% static default_photo %}" width="100px" height="100px"></div>
+        {% endif %}
+        <a href="{% url 'channel' ch.slug %}">{{ch.name}}</a>
+
+    </li>
 {% endfor %}
 </ul>
 </div>

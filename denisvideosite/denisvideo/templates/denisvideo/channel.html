@@ -1,8 +1,14 @@
 {% extends 'denisvideo/left_bar.html' %}
 
 {% block right_side %}
-<div>{{title}} <a href="{% url 'users:subscribe' channel.slug %}">{% if channel.user == user %}{% elif subed %}Отписаться{% else %}Подписаться{% endif %}</a></div>
+<div class="channel-name-container">
+<div>{{title}}</div> <div class="channel-subscribe blue-button"><a href="{% url 'users:subscribe' channel.slug %}">{% if channel.user == user %}{% elif subed %}Отписаться{% else %}Подписаться{% endif %}</a></div>
+</div>
+<div class="channel-description">{{channel.description}}</div>
+<div class="channel-videos-title">Видео на канале: </div>
+<ul class="channel-videos-list">
 {% for vid in videos %}
-    <div><a href="{% url 'show_video' vid.slug %}"><img src="{{vid.preview.url}}"></a></div>
+    <li>{% include 'denisvideo/includes/show_item.html' %}</li>
 {% endfor %}
+</ul>
 {% endblock %}

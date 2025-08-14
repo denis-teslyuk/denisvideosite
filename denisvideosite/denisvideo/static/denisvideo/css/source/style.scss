@@ -12,6 +12,7 @@ html{
     a, a:visited{
         color: #E1E5EA;
     }
+    color: #E1E5EA;
 }
 
 .header{
@@ -28,7 +29,6 @@ html{
 }
 
 .header-title{
-    color: #E1E5EA;
     font-weight: 700;
     font-size: 24px;
 }
@@ -60,10 +60,10 @@ html{
 
 .header-profile-button{
     background-color: rgba(255, 255, 255, 0);
-    color: #E1E5EA;
     border: none;
     font-size: 20px;
     font-weight: 700;
+    color: #E1E5EA;
 }
 
 
@@ -111,7 +111,6 @@ html{
 }
 
 .show-video-container{
-    color: #E1E5EA;
     margin: 20px 30px;
     display: flex;
     
@@ -286,7 +285,12 @@ html{
 .subscribe-channels{
     margin-left: 60px;
     font-size: 24px;
-    color: #E1E5EA;
+    width: 300px;
+    text-align: center;
+}
+
+.subscribes-user-avatar img{
+    border-radius: 50%;
 }
 
 
@@ -298,6 +302,38 @@ html{
     }
 }
 
+
+.channel-videos-list{
+    display: flex;
+    flex-wrap: wrap;
+    li{
+        margin-right: 20px;
+        margin-bottom: 20px
+    }
+}
+
+
+.channel-name-container{
+    display: flex;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+.channel-subscribe{
+    margin-left: 20px;
+    position: relative;
+    bottom: 5px
+}
+
+.channel-description{
+    margin-bottom: 20px;
+}
+
+.channel-videos-title{
+    margin-bottom: 20px;
+    font-size: 20px;
+}
 
 
 

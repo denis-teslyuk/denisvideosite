@@ -73,6 +73,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'denisvideo.context_processors.get_tags',
+                'users.context_processors.get_default_photo',
             ],
         },
     },
@@ -158,3 +159,5 @@ EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
+
+DEFAULT_USER_PHOTO = 'users/img/user_photo.webp'
