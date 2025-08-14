@@ -1,5 +1,6 @@
 import random
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
@@ -148,7 +149,7 @@ def add_video(request):
 def show_my_videos(request):
     if not Channel.objects.filter(user=request.user).exists():
         return redirect('users:create_channel')
-    videos = Video.objects.filter(user = request.user)
+    videos = Video.objects.filter(user = request.user).select_related('user', 'user__channel')
 
     data = {'title':'Мои видео',
             'videos':videos,}
