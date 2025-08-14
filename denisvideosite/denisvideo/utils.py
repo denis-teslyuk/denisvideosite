@@ -2,6 +2,7 @@ import random
 from datetime import datetime, timedelta
 
 from django.db.models import Count, Q
+from django.http import Http404
 
 from denisvideo.models import View, Video
 
@@ -56,3 +57,12 @@ def add_videos_to_needs_num(videos, num_vid_per_page):
         if vid not in videos and vid:
             videos.append(vid)
     return videos
+
+
+def get_videos_by_type(request):
+    if request.GET.get('type') in ('liked_videos', 'later_videos'):
+        return getattr(request.user, request.GET.get('type')).all()[::-1]
+    elif request.GET.get('type') == 'views':
+        return Video.objects.filter(views__user = request.user).order_by('-views__time_create')
+    else:
+        raise Http404()

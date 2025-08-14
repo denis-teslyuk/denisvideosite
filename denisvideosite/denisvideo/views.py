@@ -1,18 +1,14 @@
-import random
-
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from datetime import datetime, timedelta
 
 from denisvideo.forms import VideoForm
 from denisvideo.models import Video, Tag
 from denisvideo.utils import create_view, increment_view_count, get_side_videos, get_recommended_videos, \
-    add_videos_to_needs_num
+    add_videos_to_needs_num, get_videos_by_type
 from users.models import Channel
 
 
@@ -82,6 +78,7 @@ def search(request):
     search_string = request.GET.get('find', '')
     video_list = Video.objects.filter(
         Q(name__contains = search_string) | Q(description__contains = search_string))
+
     data = {
         'title':'Поиск',
         'video_list':video_list,
@@ -92,12 +89,7 @@ def search(request):
 
 @login_required
 def video_by_using_type(request):
-    if request.GET.get('type') in ('liked_videos', 'later_videos'):
-        videos = getattr(request.user, request.GET.get('type')).all()[::-1]
-    elif request.GET.get('type') == 'views':
-        videos = Video.objects.filter(views__user = request.user).order_by('-views__time_create')
-    else:
-        raise Http404()
+    videos = get_videos_by_type(request)
 
     paginator = Paginator(videos, 10)
     page = paginator.get_page(request.GET.get('page', 1))
@@ -149,6 +141,7 @@ def add_video(request):
 def show_my_videos(request):
     if not Channel.objects.filter(user=request.user).exists():
         return redirect('users:create_channel')
+
     videos = Video.objects.filter(user = request.user).select_related('user', 'user__channel')
 
     data = {'title':'Мои видео',
