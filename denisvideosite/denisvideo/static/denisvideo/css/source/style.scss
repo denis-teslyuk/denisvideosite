@@ -345,11 +345,13 @@ html{
 }
 
 
-.add-video-form{
-    width: 480px;
-    margin: 20px auto 0px;
-
+.site-form{
+    
     p{  
+        .helptext{
+            display: none;
+        }
+
         font-size: 20px;
         margin-bottom: 10px;
         display: flex;
@@ -386,3 +388,33 @@ html{
             }
 }
 
+
+.form-container{
+    width: 600px;
+    margin: 20px auto 0px;
+}
+
+
+.profile-change-pass{
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+
+.profile-channel-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+
+.profile-videos-container{
+    margin-top: 20px;
+    display: flex;
+    font-size: 20px;
+    div{
+        margin-right: 20px;
+    }
+}

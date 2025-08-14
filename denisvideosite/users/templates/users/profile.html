@@ -2,20 +2,26 @@
 {% load templ_tags %}
 
 {% block content %}
-<div><form action="" method="post">
+<div class="form-container">
+<div><form action="" method="post" class="site-form">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">Изменить</button>
 </form></div>
-<div><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
+<div class="profile-change-pass blue-button"><a href="{% url 'users:password_change' %}">Изменить пароль</a></div>
 {% check_channel user as check_result %}
 {% if check_result %}
-<div>Канал: <a href="{% url 'channel' user.channel.slug %}">{{user.channel.name}}</a></div>
-<div><a href="{% url 'users:update_channel' %}">Изменить данные канала</a></div>
-<div><a href="{% url 'my_videos' %}">Мои видео</a></div>
-<div><a href="{% url 'add_video' %}">Добавить видео</a></div>
-<div><a href="{% url 'users:delete_channel' %}">Удалить канал</a></div>
+<div class="profile-channel-container">
+    <div class="profile-channel-name">Канал: <a href="{% url 'channel' user.channel.slug %}">{{user.channel.name}}</a></div>
+    <div class="blue-button"><a href="{% url 'users:update_channel' %}">Изменить данные</a></div>
+    <div class="blue-button"><a href="{% url 'users:delete_channel' %}">Удалить канал</a></div>
+</div>
+<div class="profile-videos-container">
+    <div class="blue-button"><a href="{% url 'my_videos' %}">Мои видео</a></div>
+    <div class="blue-button"><a href="{% url 'add_video' %}">Добавить видео</a></div>
+</div>
 {% else %}
 <div><a href="{% url 'users:create_channel' %}">Создать канал</a></div>
 {% endif %}
+</div>
 {% endblock %}

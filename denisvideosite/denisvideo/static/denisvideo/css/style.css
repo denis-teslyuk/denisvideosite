@@ -411,11 +411,7 @@ html {
   font-size: 20px;
 }
 
-.add-video-form {
-  width: 480px;
-  margin: 20px auto 0px;
-}
-.add-video-form p {
+.site-form p {
   font-size: 20px;
   margin-bottom: 10px;
   display: -webkit-box;
@@ -425,25 +421,28 @@ html {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.add-video-form p input {
+.site-form p .helptext {
+  display: none;
+}
+.site-form p input {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.add-video-form p textarea {
+.site-form p textarea {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.add-video-form p select {
+.site-form p select {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.add-video-form button {
+.site-form button {
   background-color: #2e72c0;
   padding: 5px;
   border: none;
@@ -451,4 +450,37 @@ html {
   font-weight: 700;
   font-size: 20px;
   color: #E1E5EA;
+}
+
+.form-container {
+  width: 600px;
+  margin: 20px auto 0px;
+}
+
+.profile-change-pass {
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.profile-channel-container {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 20px;
+}
+
+.profile-videos-container {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 20px;
+}
+.profile-videos-container div {
+  margin-right: 20px;
 }

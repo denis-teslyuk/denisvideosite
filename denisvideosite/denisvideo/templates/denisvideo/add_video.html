@@ -1,7 +1,8 @@
 {% extends 'denisvideo/left_bar.html' %}
 
 {% block right_side %}
-<div><form action="" method="post" enctype="multipart/form-data" class="add-video-form">
+
+<div class="form-container"><form action="" method="post" enctype="multipart/form-data" class="site-form">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">{{button_text}}</button>
