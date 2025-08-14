@@ -74,7 +74,7 @@ class UpdateChannel(LoginRequiredMixin, UpdateView):
 
 class DeleteChannel(LoginRequiredMixin, DeleteView):
     model = Channel
-    extra_context = {'title': 'Удаление канала', 'button_text': 'Удалить', }
+    extra_context = {'title': 'Удаление канала', 'button_text': 'Удалить канал', }
     template_name = 'users/manipulate_channel.html'
 
     def get_object(self, queryset=None):
