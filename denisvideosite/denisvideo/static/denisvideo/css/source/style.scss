@@ -345,9 +345,8 @@ html{
 }
 
 
-.site-form{
-    
-    p{  
+.site-form{ 
+    p, div{  
         .helptext{
             display: none;
         }
@@ -377,7 +376,8 @@ html{
         }
     }
 
-    button{
+    button, .submit-row input{
+                margin-top: 20px;
                 background-color: #2e72c0;
                 padding: 5px;
                 border: none;
@@ -386,6 +386,10 @@ html{
                 font-size: 20px;
                 color: #E1E5EA;
             }
+    
+    fieldset{
+        border: none;
+    }     
 }
 
 
@@ -417,4 +421,22 @@ html{
     div{
         margin-right: 20px;
     }
+}
+
+
+.password-done-text{
+    font-size: 22px;
+    text-align: center;
+    margin-top: 20px;
+    a, a:visited{color:#2e72c0;}
+}
+
+
+.reset-password-form-info{
+    margin-bottom: 20px;
+}
+
+
+.password-reset-confirm-username{
+    margin-bottom: 20px;
 }

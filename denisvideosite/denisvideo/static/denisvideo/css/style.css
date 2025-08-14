@@ -411,7 +411,7 @@ html {
   font-size: 20px;
 }
 
-.site-form p {
+.site-form p, .site-form div {
   font-size: 20px;
   margin-bottom: 10px;
   display: -webkit-box;
@@ -421,28 +421,29 @@ html {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
-.site-form p .helptext {
+.site-form p .helptext, .site-form div .helptext {
   display: none;
 }
-.site-form p input {
+.site-form p input, .site-form div input {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.site-form p textarea {
+.site-form p textarea, .site-form div textarea {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.site-form p select {
+.site-form p select, .site-form div select {
   width: 350px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
 }
-.site-form button {
+.site-form button, .site-form .submit-row input {
+  margin-top: 20px;
   background-color: #2e72c0;
   padding: 5px;
   border: none;
@@ -450,6 +451,9 @@ html {
   font-weight: 700;
   font-size: 20px;
   color: #E1E5EA;
+}
+.site-form fieldset {
+  border: none;
 }
 
 .form-container {
@@ -483,4 +487,21 @@ html {
 }
 .profile-videos-container div {
   margin-right: 20px;
+}
+
+.password-done-text {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+}
+.password-done-text a, .password-done-text a:visited {
+  color: #2e72c0;
+}
+
+.reset-password-form-info {
+  margin-bottom: 20px;
+}
+
+.password-reset-confirm-username {
+  margin-bottom: 20px;
 }
