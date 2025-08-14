@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-  <form action="" method="post">
+<div class="form-container">
+  <form action="" method="post" class="site-form">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{next}}">
     {{form.as_p}}
     <button type="submit">Войти</button>
   </form>
+  <div class="login-password-reset-button blue-button"><a href="{% url 'users:password_reset' %}">Восстановитть пароль</a></div>
 </div>
-<div><a href="{% url 'users:password_reset' %}">Восстановитть пароль</a></div>
+
 {% endblock %}
