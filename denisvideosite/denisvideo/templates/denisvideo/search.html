@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
+<ul class="search-list">
 {% for vid in video_list %}
-
-    <li><a href="{% url 'show_video' vid.slug %}"><img src = '{{vid.preview.url}}' width="300px"/> {{vid.name}}</a></li>
+    <li>{% include 'denisvideo/includes/show_item.html' %}</li>
 {% endfor %}
 </ul>
 {% endblock %}

@@ -233,12 +233,14 @@ html{
 
 
 .index-item-name{
+    font-weight: 700;
     font-size: 18px;
     margin-bottom: 15px;
 }
 
 
 .index-item-channel-name{
+    font-weight: 700;
     font-size: 16px;
 }
 
@@ -268,7 +270,6 @@ html{
 
 
 .subscribe-container{
-    font-weight: 700;
     justify-content: center;
     display: flex;
     li {
@@ -288,6 +289,14 @@ html{
     color: #E1E5EA;
 }
 
+
+.search-list{
+    width: 450px;
+    margin: 30px auto 0px;
+    li {
+        margin-bottom: 30px;
+    }
+}
 
 
 
