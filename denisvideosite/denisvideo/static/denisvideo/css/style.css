@@ -73,14 +73,14 @@ html {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+.wrapper a, .wrapper a:visited {
+  color: #E1E5EA;
+}
 
 .header {
   background-color: #1C232B;
   height: 70px;
   padding: 15px;
-}
-.header a, .header a:visited {
-  color: #E1E5EA;
 }
 
 .header-container {
@@ -155,7 +155,6 @@ html {
   height: 100%;
 }
 .left-bar a, .left-bar a:visited {
-  color: #E1E5EA;
   font-size: 17px;
   font-weight: 700;
 }
@@ -187,9 +186,6 @@ html {
   display: -ms-flexbox;
   display: flex;
 }
-.show-video-container a, .show-video-container a:visited {
-  color: #E1E5EA;
-}
 
 .show-video-right {
   margin-left: 20px;
@@ -217,10 +213,13 @@ html {
 .show-video-channel-subscribe {
   position: relative;
   bottom: 5px;
+  margin-left: 10px;
+}
+
+.blue-button {
   background-color: #2e72c0;
   padding: 5px;
   border-radius: 5px;
-  margin-left: 10px;
 }
 
 .show-video-extra {
@@ -287,9 +286,6 @@ html {
       flex-wrap: wrap;
   font-weight: 700;
 }
-.index-list a, .index-list a:visited {
-  color: #E1E5EA;
-}
 
 .index-item {
   margin-right: 10px;
@@ -326,9 +322,6 @@ html {
   font-weight: 700;
   margin-right: 10px;
 }
-.video-by-types-page-num a, .video-by-types-page-num a:visited {
-  color: #E1E5EA;
-}
 
 .my-videos-manupulate {
   margin-top: 10px;
@@ -338,7 +331,27 @@ html {
 }
 .my-videos-manupulate div {
   margin-right: 10px;
-  background-color: #2e72c0;
-  padding: 5px;
-  border-radius: 5px;
+}
+
+.subscribe-container {
+  font-weight: 700;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.subscribe-container li {
+  margin-bottom: 20px;
+}
+
+.subscribe-channels-title {
+  margin-bottom: 20px;
+}
+
+.subscribe-channels {
+  margin-left: 60px;
+  font-size: 24px;
+  color: #E1E5EA;
 }

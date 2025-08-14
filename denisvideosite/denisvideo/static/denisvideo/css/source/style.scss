@@ -8,16 +8,17 @@ html{
     height: 100%;
     display: flex;
     flex-direction: column;
-    
+
+    a, a:visited{
+        color: #E1E5EA;
+    }
 }
 
 .header{
     background-color: #1C232B;
     height: 70px;
     padding: 15px;
-    a, a:visited{
-        color: #E1E5EA;
-    }
+    
 }
 
 .header-container{
@@ -83,7 +84,6 @@ html{
     background-color: #1C232B;
     height: 100%;
     a, a:visited{
-        color: #E1E5EA;
         font-size: 17px;
         font-weight: 700;
     }
@@ -114,9 +114,7 @@ html{
     color: #E1E5EA;
     margin: 20px 30px;
     display: flex;
-    a, a:visited{
-        color: #E1E5EA;
-    }
+    
 }
 
 .show-video-right{
@@ -144,11 +142,16 @@ html{
 .show-video-channel-subscribe{
     position: relative;
     bottom: 5px;
+    margin-left: 10px;
+}
+
+
+.blue-button{
     background-color: #2e72c0;
     padding: 5px;
     border-radius: 5px;
-    margin-left: 10px;
 }
+
 
 .show-video-extra{
     margin-top: 10px;
@@ -212,9 +215,6 @@ html{
 .index-list{
     display: flex;
     flex-wrap: wrap;
-    a, a:visited{
-        color: #E1E5EA;
-    }
     font-weight: 700;
 }
 
@@ -254,9 +254,6 @@ html{
     font-size: 18px;
     font-weight: 700;
     margin-right: 10px;
-    a, a:visited{
-        color:#E1E5EA;
-    }
 }
 
 
@@ -265,10 +262,33 @@ html{
     display: flex;
     div {
         margin-right: 10px;
-        background-color: #2e72c0;
-        padding: 5px;
-        border-radius: 5px;
     }
     
 }
+
+
+.subscribe-container{
+    font-weight: 700;
+    justify-content: center;
+    display: flex;
+    li {
+        margin-bottom: 20px;
+    }
+}
+
+
+.subscribe-channels-title{
+    margin-bottom: 20px;
+}
+
+
+.subscribe-channels{
+    margin-left: 60px;
+    font-size: 24px;
+    color: #E1E5EA;
+}
+
+
+
+
 

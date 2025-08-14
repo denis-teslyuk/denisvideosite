@@ -8,7 +8,7 @@
             <div class="show-video-name">{{video.name}}</div>
             <div class="show-video-channel">
                 <div class="show-video-channel-name"><a href="{% url 'channel' video.user.channel.slug %}">{{video.user.channel.name}}</a></div>
-                <div class="show-video-channel-subscribe"><a href="{% url 'users:subscribe' video.user.channel.slug %}">{% if subed %}Отписаться{% elif user == video.user %}{% else %}Подписаться{% endif %}</a></div>
+                <div class="show-video-channel-subscribe blue-button"><a href="{% url 'users:subscribe' video.user.channel.slug %}">{% if subed %}Отписаться{% elif user == video.user %}{% else %}Подписаться{% endif %}</a></div>
             </div>
             <div class="show-video-extra">
                 <div class="show-video-views-count">{{video.views_count}} просмотров</div>
