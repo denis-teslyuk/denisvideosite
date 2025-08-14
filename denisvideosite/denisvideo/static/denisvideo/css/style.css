@@ -219,6 +219,7 @@ html {
   background-color: #2e72c0;
   padding: 5px;
   border-radius: 5px;
+  font-weight: 700;
 }
 
 .show-video-extra {
@@ -324,13 +325,19 @@ html {
   margin-right: 10px;
 }
 
-.my-videos-manupulate {
+.my-videos-add-video-button {
+  font-size: 20px;
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.my-videos-manipulate {
   margin-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.my-videos-manupulate div {
+.my-videos-manipulate div {
   margin-right: 10px;
 }
 
@@ -402,4 +409,46 @@ html {
 .channel-videos-title {
   margin-bottom: 20px;
   font-size: 20px;
+}
+
+.add-video-form {
+  width: 480px;
+  margin: 20px auto 0px;
+}
+.add-video-form p {
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.add-video-form p input {
+  width: 350px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+.add-video-form p textarea {
+  width: 350px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+.add-video-form p select {
+  width: 350px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
+.add-video-form button {
+  background-color: #2e72c0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #E1E5EA;
 }

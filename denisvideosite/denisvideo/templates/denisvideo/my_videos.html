@@ -1,12 +1,13 @@
 {% extends 'denisvideo/left_bar.html' %}
 
 {% block right_side %}
+<div class="my-videos-add-video-button blue-button" ><a href="{% url 'add_video' %}">Добавить видео</a></div>
 <ul class="index-list">
 {% for vid in videos %}
     <li class="index-item">
     {% include 'denisvideo/includes/show_item.html' %}
-    <div class="my-videos-manupulate blue-button"><div><a href="{% url 'update_video' vid.slug %}">Изменить видео</a></div>
-        <div><a href="{% url 'delete_video' vid.slug %}">Удалить видео</a></div></div>
+    <div class="my-videos-manipulate "><div class="blue-button"><a href="{% url 'update_video' vid.slug %}">Изменить видео</a></div>
+        <div class="blue-button"><a href="{% url 'delete_video' vid.slug %}">Удалить видео</a></div></div>
     </li>
 {% endfor %}
 </ul>

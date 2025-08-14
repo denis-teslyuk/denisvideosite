@@ -149,6 +149,7 @@ html{
     background-color: #2e72c0;
     padding: 5px;
     border-radius: 5px;
+    font-weight: 700;
 }
 
 
@@ -258,13 +259,19 @@ html{
 }
 
 
-.my-videos-manupulate{
+.my-videos-add-video-button{
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+
+.my-videos-manipulate{
     margin-top: 10px;
     display: flex;
     div {
         margin-right: 10px;
     }
-    
 }
 
 
@@ -326,9 +333,11 @@ html{
     bottom: 5px
 }
 
+
 .channel-description{
     margin-bottom: 20px;
 }
+
 
 .channel-videos-title{
     margin-bottom: 20px;
@@ -336,4 +345,44 @@ html{
 }
 
 
+.add-video-form{
+    width: 480px;
+    margin: 20px auto 0px;
+
+    p{  
+        font-size: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        input{
+            width: 350px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            
+        }
+        textarea{
+            width: 350px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        select{
+            width: 350px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+    }
+
+    button{
+                background-color: #2e72c0;
+                padding: 5px;
+                border: none;
+                border-radius: 5px;
+                font-weight: 700;
+                font-size: 20px;
+                color: #E1E5EA;
+            }
+}
 
