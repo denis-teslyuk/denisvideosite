@@ -66,3 +66,12 @@ def get_videos_by_type(request):
         return Video.objects.filter(views__user = request.user).order_by('-views__time_create')
     else:
         raise Http404()
+
+
+def mark_video(request, video):
+    type = request.GET.get('type')
+    if type in ('likers', 'dislikers'):
+        if request.user in getattr(video, type).all():
+            getattr(video, type).remove(request.user)
+        else:
+            getattr(video, type).add(request.user)

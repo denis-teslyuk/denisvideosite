@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from denisvideo.forms import VideoForm
 from denisvideo.models import Video, Tag
 from denisvideo.utils import create_view, increment_view_count, get_side_videos, get_recommended_videos, \
-    add_videos_to_needs_num, get_videos_by_type
+    add_videos_to_needs_num, get_videos_by_type, mark_video
 from users.models import Channel
 
 
@@ -56,13 +56,7 @@ def show_video(request, slug):
 
 @login_required
 def add_like_or_dislike(request, slug):
-    video = get_object_or_404(Video, slug=slug)
-
-    if request.GET.get('type') in ('likers', 'dislikers'):
-        if request.user in getattr(video, request.GET['type']).all():
-            getattr(video, request.GET['type']).remove(request.user)
-        else:
-            getattr(video, request.GET['type']).add(request.user)
+    mark_video(request, get_object_or_404(Video, slug=slug))
 
     return redirect(request.META.get('HTTP_REFERER'))
 
