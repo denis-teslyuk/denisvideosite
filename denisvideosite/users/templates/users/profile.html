@@ -21,7 +21,7 @@
     <div class="blue-button"><a href="{% url 'add_video' %}">Добавить видео</a></div>
 </div>
 {% else %}
-<div class="blue-button"><a href="{% url 'users:create_channel' %}">Создать канал</a></div>
+<div class="profile-create-channel-button blue-button"><a href="{% url 'users:create_channel' %}">Создать канал</a></div>
 {% endif %}
 </div>
 {% endblock %}

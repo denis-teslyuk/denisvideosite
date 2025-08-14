@@ -511,3 +511,9 @@ html {
   margin-top: 20px;
   font-size: 20px;
 }
+
+.profile-create-channel-button {
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 20px;
+}
