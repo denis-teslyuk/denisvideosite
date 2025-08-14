@@ -176,8 +176,8 @@ def show_channel(request, slug):
 
 @login_required
 def show_subscribes(request):
-    channels = request.user.subscribes.all()
-    videos = Video.objects.filter(user__channel__in = channels).order_by('-time_create')
+    channels = request.user.subscribes.all().select_related('user')
+    videos = Video.objects.filter(user__channel__in = channels).order_by('-time_create').select_related('user', 'user__channel')
 
     data ={
         'title':'Подписки',
