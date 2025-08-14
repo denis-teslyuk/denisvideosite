@@ -158,8 +158,11 @@ def show_my_videos(request):
 
 
 def show_channel(request, slug):
-    channel = get_object_or_404(Channel, slug=slug)
-    videos = Video.objects.filter(user__channel = channel)
+    try:
+        channel = Channel.objects.select_related('user').get(slug=slug)
+    except ObjectDoesNotExist:
+        raise Http404()
+    videos = Video.objects.filter(user__channel = channel).select_related('user', 'user__channel')
 
     data = {
         'title':channel.name,
