@@ -1,0 +1,81 @@
+.profile-change-pass {
+  display: inline-block;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.profile-channel-container {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 20px;
+}
+
+.profile-videos-container {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 20px;
+}
+.profile-videos-container div {
+  margin-right: 20px;
+}
+
+.password-done-text {
+  font-size: 22px;
+  text-align: center;
+  margin-top: 20px;
+}
+.password-done-text a, .password-done-text a:visited {
+  color: #2e72c0;
+}
+
+.reset-password-form-info {
+  margin-bottom: 20px;
+}
+
+.password-reset-confirm-username {
+  margin-bottom: 20px;
+}
+
+.login-password-reset-button {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.profile-create-channel-button {
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.form-profile {
+  width: 700px;
+  font-size: 20px;
+}
+.form-profile p {
+  margin-bottom: 20px;
+}
+.form-profile p .helptext {
+  display: none;
+}
+.form-profile input {
+  border: none;
+  border-radius: 5px;
+  height: 25px;
+}
+.form-profile button {
+  background-color: #2e72c0;
+  padding: 5px;
+  border-radius: 5px;
+  font-weight: 700;
+  color: #E1E5EA;
+  font-size: 20px;
+  border: none;
+}

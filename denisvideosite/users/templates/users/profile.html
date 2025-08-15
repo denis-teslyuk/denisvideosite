@@ -2,8 +2,8 @@
 {% load templ_tags %}
 
 {% block content %}
-<div class="form-container">
-<div><form action="" method="post" class="site-form">
+<div class="form-container form-size">
+<div><form action="" method="post" enctype="multipart/form-data" class="form-profile">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">Изменить</button>
