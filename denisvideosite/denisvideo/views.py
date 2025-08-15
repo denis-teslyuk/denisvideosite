@@ -72,7 +72,7 @@ def add_watch_later(request, slug):
 def search(request):
     search_string = request.GET.get('find', '')
     video_list = Video.objects.filter(
-        Q(name__contains = search_string) | Q(description__contains = search_string)) #Ищет видео в названии или описании котрых содержится нужное значение
+        Q(name__icontains = search_string) | Q(description__icontains = search_string)) #Ищет видео в названии или описании котрых содержится нужное значение
 
     data = {
         'title':'Поиск',
