@@ -85,6 +85,7 @@ def search(request):
 @login_required
 def video_by_using_type(request):
     """Возвращает понравившееся, или просмотренные, или добавленные в плейлист смотреть позже видео"""
+
     videos = get_videos_by_type(request)
 
     paginator = Paginator(videos, 10)

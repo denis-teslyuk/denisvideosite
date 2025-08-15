@@ -10,7 +10,7 @@ class Video(models.Model):
                             validators =[FileExtensionValidator(allowed_extensions=['mp4','avi','mkv','mov','wmv','webm','html5','mpeg'])],
                             verbose_name='Видео файл')
     name = models.CharField(max_length=256, verbose_name='Название')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=512,unique=True)
     preview = models.ImageField(upload_to='previews', verbose_name='Превью')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='videos', verbose_name='Автор')
     description = models.TextField(blank=True, verbose_name='Описание')
