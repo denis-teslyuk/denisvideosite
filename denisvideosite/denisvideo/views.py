@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from denisvideo.forms import VideoForm
 from denisvideo.models import Video, Tag
 from denisvideo.utils import create_view, increment_view_count, get_side_videos, get_recommended_videos, \
-    add_videos_to_needs_num, get_videos_by_type, mark_video
+    add_videos_to_needs_num, get_videos_by_type, mark_like_video
 from users.models import Channel
 
 
@@ -16,10 +16,10 @@ from users.models import Channel
 def index(request):
     videos = []
     num_vid_per_page = 10
-    if request.user.is_authenticated:
+    if request.user.is_authenticated:                              #Если пользователь аутентифицирован получаем подборку видео, в зависимости от того видео с какими тегами он смотрит
         videos = get_recommended_videos(request, num_vid_per_page)
 
-    videos = add_videos_to_needs_num(videos, num_vid_per_page)
+    videos = add_videos_to_needs_num(videos, num_vid_per_page) #Если количество видео не хватает добавляеи до нужного случайными видео
 
     data = {
         'title': 'Домашняя страница',
@@ -34,9 +34,9 @@ def show_video(request, slug):
         video = Video.objects.select_related('user').get(slug = slug)
     except ObjectDoesNotExist:
         raise Http404()
-    side_videos = get_side_videos(video)
+    side_videos = get_side_videos(video) #Получаем список боковых видео
 
-    create_view(request, video)
+    create_view(request, video) #Пересаздаем объект просмотра чтобы история просмотров изменилась
     increment_view_count(video)
 
     likes_count = video.likers.count()
@@ -48,7 +48,7 @@ def show_video(request, slug):
         'side_videos': side_videos,
         'likes_count': likes_count,
         'dislikes_count':dislikes_count,
-        'subed': request.user in video.user.channel.subscribers.all(),
+        'subed': request.user in video.user.channel.subscribers.all(), #Проверяем подписан ли пользователь на канал
     }
 
     return render(request, 'denisvideo/show_video.html', data)
@@ -56,13 +56,14 @@ def show_video(request, slug):
 
 @login_required
 def add_like_or_dislike(request, slug):
-    mark_video(request, get_object_or_404(Video, slug=slug))
+    mark_like_video(request, get_object_or_404(Video, slug=slug))
 
     return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
 def add_watch_later(request, slug):
+    """Добавляет видео в смотреть позже"""
     video = get_object_or_404(Video, slug=slug)
     video.watch_later_users.add(request.user)
     return redirect(request.META.get('HTTP_REFERER'))
@@ -71,7 +72,7 @@ def add_watch_later(request, slug):
 def search(request):
     search_string = request.GET.get('find', '')
     video_list = Video.objects.filter(
-        Q(name__contains = search_string) | Q(description__contains = search_string))
+        Q(name__contains = search_string) | Q(description__contains = search_string)) #Ищет видео в названии или описании котрых содержится нужное значение
 
     data = {
         'title':'Поиск',
@@ -83,6 +84,7 @@ def search(request):
 
 @login_required
 def video_by_using_type(request):
+    """Возвращает понравившееся, или просмотренные, или добавленные в плейлист смотреть позже видео"""
     videos = get_videos_by_type(request)
 
     paginator = Paginator(videos, 10)
@@ -133,7 +135,7 @@ def add_video(request):
 
 @login_required
 def show_my_videos(request):
-    if not Channel.objects.filter(user=request.user).exists():
+    if not Channel.objects.filter(user=request.user).exists(): #Если не у пользователя не существует канала перенаправляет на страницу создания канала
         return redirect('users:create_channel')
 
     videos = Video.objects.filter(user = request.user).select_related('user', 'user__channel')

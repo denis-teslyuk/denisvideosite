@@ -6,8 +6,6 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
-
-from denisvideo.models import Video
 from users.forms import RegistrationForm, ProfileForm, ChannelForm
 from users.models import Channel
 
@@ -66,7 +64,7 @@ class UpdateChannel(LoginRequiredMixin, UpdateView):
         try:
             return Channel.objects.get(user = self.request.user)
         except ObjectDoesNotExist:
-            return redirect(reverse_lazy('users:create_channel'))
+            return redirect(reverse_lazy('users:create_channel')) #Если у пользователя не существует канала переправляет на страницу создания канала
 
     def get_success_url(self):
         return reverse_lazy('users:profile')
@@ -89,8 +87,10 @@ class DeleteChannel(LoginRequiredMixin, DeleteView):
 
 class Subscribe(LoginRequiredMixin, View):
     def get(self,request, slug, *args, **kwargs):
+        """Добавляет канал в список подписок"""
+
         channel = get_object_or_404(Channel, slug = slug)
-        if channel.user == request.user:
+        if channel.user == request.user:                        #Если пользователь пытаетс подписать на свой же канал редирект на предыдущую страницу
             redirect(request.META.get('HTTP_REFERER'))
         if self.request.user in channel.subscribers.all():
             channel.subscribers.remove(self.request.user)
